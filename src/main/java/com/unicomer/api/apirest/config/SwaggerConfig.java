@@ -1,9 +1,7 @@
 package com.unicomer.api.apirest.config;
 
-import org.hibernate.boot.Metadata;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -20,15 +18,15 @@ public class SwaggerConfig {
     public Docket api() { 
         return new Docket(DocumentationType.SWAGGER_2)  
           .select()                                  
-          .apis(RequestHandlerSelectors.any())              
-          .paths(PathSelectors.any())                          
+          .apis(RequestHandlerSelectors.basePackage("com.unicomer.api.apirest.controller"))
+          .paths(PathSelectors.any())
           .build().apiInfo(metaData());
     }
 
     private ApiInfo metaData(){
-        return new ApiInfoBuilder().title("hola")
-                .description("description")
-                .version("version")
+        return new ApiInfoBuilder().title("Unicomer")
+                .description("Proceso de selección para la posición de Desarrollador backend java para Unicomer")
+                .version("1.0.0")
                 .build();
     }
 }

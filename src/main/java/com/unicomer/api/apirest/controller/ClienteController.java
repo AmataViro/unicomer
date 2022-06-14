@@ -51,7 +51,7 @@ public class ClienteController {
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Los datos del cliente se ha guardado exitosamente", response = AbstractResponseDto.class),
 			@ApiResponse(code = 500, message = "Error generado por excepción interna", response = Void.class) })
-	public ResponseEntity<AbstractResponseDto> post(@ApiParam("Estructura de la planificacion") @RequestBody ClienteDto dto) {
+	public ResponseEntity<AbstractResponseDto> post(@ApiParam("Estructura de datos del cliente") @RequestBody ClienteDto dto) {
 		
 		final Integer id = this.service.agregarCliente(dto);
 		return ResponseUtil.success().body(id).message("Los datos del cliente se ha guardado exitosamente")
@@ -105,7 +105,7 @@ public class ClienteController {
 			@ApiResponse(code = 200, message = "Cliente obtenido exitosamente", response = AbstractResponseDto.class),
 			@ApiResponse(code = 500, message = "Error generado por excepción interna", response = Void.class) })
 	public ResponseEntity<AbstractResponseDto> getById(@ApiParam("Id del cliente") @PathVariable(required = true, name = "id") final Integer id) {
-		return ResponseUtil.success().body(this.service.obtenerCostoPorId(id))
+		return ResponseUtil.success().body(this.service.obtenerClientePorId(id))
 				.message("Cliente obtenido exitosamente").send(HttpStatus.OK);
 	}
 

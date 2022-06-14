@@ -44,7 +44,6 @@ public class ClienteDto {
     private Float ingresos;
 
 	
-	
 	public Integer getId() {
 		return id;
 	}

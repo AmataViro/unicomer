@@ -13,20 +13,29 @@ import com.unicomer.api.apirest.model.Cliente;
 import com.unicomer.api.apirest.repository.ClienteRepository;
 import com.unicomer.api.apirest.util.GeneralLogicException;
 
-import ch.qos.logback.core.net.server.Client;
-
 @Service
 public class ClienteService {
 	@Autowired
     private ClienteRepository repository;
 
-
+    /**
+     * Crear el registro de los datos de un cliente
+     * 
+     * @param cliente
+     * @return Id del cliente registrado
+     */
     @Transactional
     public Integer agregarCliente(ClienteDto cliente) {
         final Cliente o = this.repository.save(cliente.createEntity());
         return o.getId();
     }
 
+    /**
+     * Actualizar el registro de los datos de un cliente
+     * 
+     * @param cliente
+     * @return Id del cliente actualizado
+     */
     @Transactional
     public Integer actualizarCliente(ClienteDto cliente) {
 
@@ -35,10 +44,9 @@ public class ClienteService {
         Cliente o = this.repository.save(cliente.createEntity(o_db));
         return o.getId();
     }
-
 	
 	/**
-     * Obtener todos los clientes
+     * Obtener un listado de todos los clientes
      * 
      * @param clientes
      * @return Lista de registros de clientes
@@ -51,16 +59,28 @@ public class ClienteService {
         return lista;
     }
 
-    public ClienteDto obtenerCostoPorId(Integer id) {
+    /**
+     * Obtener los datos del registro de un cliente segun su id
+     * 
+     * @param id
+     * @return Datos del cliente
+     */
+    public ClienteDto obtenerClientePorId(Integer id) {
         final Cliente o = this.repository.findById(id)
-                .orElseThrow(() -> new GeneralLogicException("Costo [" + id + "] no existe"));
+                .orElseThrow(() -> new GeneralLogicException("Cliente [" + id + "] no existe"));
                 ClienteDto dto = new ClienteDto(o);
 
         return dto;
     }
 
+    /**
+     * Eliminar el registro de un cliente
+     * 
+     * @param id
+     */
     @Transactional
     public void eliminarCliente(Integer id) {
         this.repository.deleteById(id);
     }
+    
 }
